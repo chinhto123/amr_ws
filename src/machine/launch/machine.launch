@@ -1,0 +1,15 @@
+<launch>
+
+
+   <param name="robot_description"
+    command="cat $(find machine)/urdf/machine.urdf" />
+  
+     <!-- BEGIN MACHINE 1-->
+  <group ns="machine1">
+    <param name="tf_prefix" value="machine1_tf" />
+    <include file="$(find machine)/launch/gazebo.launch" >
+      <arg name="init_pose" value="-y 1.5 -R 1.57" />
+      <arg name="robot_name"  value="machine1" />
+    </include>
+  </group>
+</launch>

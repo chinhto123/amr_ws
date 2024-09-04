@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<launch>
+ 
+
+ <include file="$(find mobipick_gazebo)/launch/mobipick/mobipick_gazebo_common.launch">
+  </include>
+ 
+</launch>

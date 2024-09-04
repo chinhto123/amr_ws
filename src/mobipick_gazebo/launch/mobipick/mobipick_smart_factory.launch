@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<launch>
+
+
+ <!-- Gazebo options -->
+  <arg name="gazebo_gui" default="true" doc="Start Gazebo GUI"/>
+  <arg name="paused" default="false" doc="Start Gazebo paused"/>
+  <arg name="world_pose" default="-x 5 -y 2 -z 0.1 -R 0 -P 0 -Y 0" doc="Pose to spawn the robot at"/>
+  
+  <!-- Start Gazebo paused to allow the controllers to pickup the initial pose -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" pass_all_args="true">
+    <arg name="world_name" value="$(find mobipick_gazebo)/worlds/smart_factory.sdf"/>
+    <arg name="paused" value="true"/>
+  </include> 
+
+   <node
+    name="base_tf"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 base_footprint world 100" />
+   
+ <arg name="tf_prefix" default="" doc="tf_prefix to be used by gazebo plugins and in the robot's urdf etc." />
+
+    <arg name="prefix" value="$(arg tf_prefix)/" if="$(eval tf_prefix != '')" /> <!-- $(arg prefix) is used in all the config files! TODO: For multiple robots, create groups when loading the parameters to overwrite the arg? -->
+    <arg name="prefix" value=""                  unless="$(eval tf_prefix != '')" />
+
+
+
+  <!-- Load URDF -->
+  <!-- URDF -->
+  <!-- Set the robot urdf on the parameter server -->
+  <param name="robot_description" textfile="$(find ax6112_ur5_struct)/config/gazebo_autoxing.urdf" />
+
+
+  <!-- Load gazebo controller configurations -->
+  <!-- Note: You MUST load these PID parameters for all joints that are using
+       the PositionJointInterface, otherwise the arm + gripper will act like a
+       giant parachute, counteracting gravity, and causing some of the wheels
+       to lose contact with the ground, so the robot won't be able to properly
+       navigate. See
+       https://github.com/ros-simulation/gazebo_ros_pkgs/issues/612 -->
+   <!-- Unpause the simulation after loading the robot model -->
+  <arg name="unpause" value="$(eval '' if arg('paused') else '-unpause')" />
+
+  <!-- Spawn the robot in Gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot $(arg unpause) $(arg world_pose) "
+    respawn="false" output="screen" />
+
+        <!-- Load ros_control controller configurations -->
+    <rosparam file="$(find ax6112)/config/joint_state_controller.yaml" command="load" />
+    <rosparam file="$(find ax6112)/config/diffdrive_controller.yaml" command="load" subst_value="true" />
+  <rosparam file="$(find ax6112_ur5_struct)/config/gazebo_controllers.yaml" />
+  <include file="$(find ax6112_ur5_struct)/launch/ros_controllers.launch"/>
+    
+
+    
+     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_node" clear_params="true" output="screen">
+    <rosparam command="load" file="$(find ax6112)/config/efk.yaml" subst_value="true" />
+  </node>
+   <!-- Given the published joint states, publish tf for the robot links -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+    <!-- Load teleop -->
+    <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+        <param name="default_topic" value="/mobile_base_controller/cmd_vel"/>
+        <param name="default_vx_max" value="1.0" />
+        <param name="default_vx_min" value="-1.0" />
+        <param name="default_vw_max" value="1.5" />
+        <param name="default_vw_min" value="-1.5" />
+    </node>  
+
+  <node name="rqt_joint_trajectory_controller" pkg="rqt_joint_trajectory_controller" type="rqt_joint_trajectory_controller" />
+
+  
+
+
+</launch>

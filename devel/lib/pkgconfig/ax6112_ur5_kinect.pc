@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: ax6112_ur5_kinect
+Description: Description of ax6112_ur5_kinect
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

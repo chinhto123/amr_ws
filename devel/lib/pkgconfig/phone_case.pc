@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: phone_case
+Description: Description of phone_case
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

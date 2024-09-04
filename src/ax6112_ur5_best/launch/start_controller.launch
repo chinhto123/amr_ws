@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<launch>
+
+
+     <arg name="robot_x" default="0.0" />
+    <arg name="robot_y" default="0.0" />
+    <arg name="robot_yaw" default="0.0"/>
+    
+       <!-- startup simulated WORLD -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+     <!--<arg name="world_name" value="$(find ax6112)/world/demo.world"/> -->
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+        <arg name="debug" value="false" />
+        <arg name="verbose" value="true" />
+    </include>
+  <node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 base_link base_footprint 40" />
+        <arg name="urdf_path" default="$(find ax6112)/urdf/ax6112.urdf"/>
+
+    <param name="robot_description" textfile="$(arg urdf_path)" />
+
+    <!-- Spawn the robot into Gazebo -->
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model ax6112
+    -x $(arg robot_x) -y $(arg robot_y) -z 0.1 -Y $(arg robot_yaw)" />
+
+  <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />
+    
+    <arg name="tf_prefix" default="" doc="tf_prefix to be used by gazebo plugins and in the robot's urdf etc." />
+
+    <arg name="prefix" value="$(arg tf_prefix)/" if="$(eval tf_prefix != '')" /> <!-- $(arg prefix) is used in all the config files! TODO: For multiple robots, create groups when loading the parameters to overwrite the arg? -->
+    <arg name="prefix" value=""                  unless="$(eval tf_prefix != '')" />
+
+        <!-- Load ros_control controller configurations -->
+    <rosparam file="$(find ax6112)/config/joint_state_controller.yaml" command="load" />
+    <rosparam file="$(find ax6112)/config/diffdrive_controller.yaml" command="load" subst_value="true" />
+    
+    <!-- Start the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
+        args=" joint_state_controller mobile_base_controller"/>
+        
+   <!-- Add passive + mimic joints to joint_states topic -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+             <param name="rate" value="200.0" />
+      </node>
+      
+
+     
+    <!-- Load teleop -->
+    <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+        <param name="default_topic" value="cmd_vel"/>
+        <param name="default_vx_max" value="1.0" />
+        <param name="default_vx_min" value="-1.0" />
+        <param name="default_vw_max" value="1.5" />
+        <param name="default_vw_min" value="-1.5" />
+    </node>    
+</launch>

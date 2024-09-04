@@ -1,0 +1,76 @@
+<robot  xmlns:xacro="http://ros.org/wiki/xacro" name="klt_model">
+  <xacro:include filename="$(find mobipick_description)/urdf/common_properties.urdf.xacro" />
+
+  <xacro:property name="mass" value="0.575" />
+
+  <link name="klt">
+    <inertial>
+      <origin xyz="0.00012358 -0.00007882 -0.00089578" rpy="0 0 0" />
+      <mass value="${mass}" />
+      <inertia
+        ixx="${mass *  0.007472041582202446}"
+        ixy="${mass * -1.0940575783940914e-05}"
+        ixz="${mass *  4.89988236783716e-07}"
+        iyy="${mass *  0.014559482643509519}"
+        iyz="${mass * -3.143030520392239e-07}"
+        izz="${mass *  0.017079079407189855}" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://pbr_objects/meshes/klt/klt3147.obj" />
+      </geometry>
+    </visual>
+
+    <!--<collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://pbr_objects/meshes/klt/klt_simplified.stl" />
+      </geometry>
+    </collision>-->
+
+    <!--klt collision model made up from boxes, klt bounding box as reported from dope : 0.297 0.197 0.1469-->
+
+    <!-- klt base -->
+    <collision>
+      <origin xyz="0 0 -0.06345" rpy="0 0 0" /> <!--klt thickness = 0.02 ; (0.1469 - 0.02 = 0.1269) / 2-->
+      <geometry>
+
+            <box size="0.297 0.197 0.02" />
+      </geometry>
+    </collision>
+
+    <!-- right klt wall -->
+    <collision>
+      <origin xyz="0 0.0885 0" rpy="0 0 0" /> <!--(0.197 - 0.02 = 0.177) / 2-->
+      <geometry>
+        <box size="0.297 0.02 0.1469" />
+      </geometry>
+    </collision>
+
+    <!-- left klt wall -->
+    <collision>
+      <origin xyz="0 -0.0885 0" rpy="0 0 0" /> <!--(0.197 - 0.02 = 0.177) / 2-->
+      <geometry>
+        <box size="0.297 0.02 0.1469" />
+      </geometry>
+    </collision>
+
+    <!-- front klt wall -->
+    <collision>
+      <origin xyz="0.1385 0 0" rpy="0 0 0" /> <!--(0.297 - 0.02 = 0.277 ) / 2-->
+      <geometry>
+        <box size="0.02 0.197 0.1469" />
+      </geometry>
+    </collision>
+
+    <!-- back klt wall -->
+    <collision>
+      <origin xyz="-0.1385 0 0" rpy="0 0 0" /> <!--(0.297 - 0.02 = 0.277 ) / 2-->
+      <geometry>
+        <box size="0.02 0.197 0.1469" />
+      </geometry>
+    </collision>
+
+  </link>
+</robot>

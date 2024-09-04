@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/install
+
+Name: ax6113
+Description: Description of ax6113
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

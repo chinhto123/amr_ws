@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="namespace" default="mobipick"         doc="Namespace to push all topics into"/>
+  <arg name="tf_prefix" default="$(arg namespace)" doc="tf_prefix to be used" />
+  <arg name="robot_name" default="mobipick" doc="Sets the name of the robot in gazebo" />
+  <arg name="robot"      default="mobipick-os" doc="Which variant of the mobipick? Can be 'mobipick-hb' or 'mobipick-os'" />
+
+  <arg name="gui" default="true" />
+  <arg name="start_paused" default="true" />
+  <arg name="arm_controller" default="trajectory" doc="Which arm controller to start. Options are trajectory, velocity, position" />
+
+  <include file="$(find mobipick_gazebo)/launch/mobipick/mobipick_empty_world.launch">
+    <arg name="robot" value="$(arg robot)" />
+    <arg name="namespace" value="$(arg namespace)" />
+    <arg name="tf_prefix" value="$(arg tf_prefix)" />
+    <arg name="robot_name" value="$(arg robot_name)" />
+    <arg name="start_paused" value="$(arg start_paused)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="arm_controller" value="$(arg arm_controller)" />
+    <arg name="world_name" value="$(find pbr_gazebo)/worlds/pbr_moelk.sdf"/>
+    <arg name="robot_x"   value="11.00" />
+    <arg name="robot_y"   value="3.00" />
+    <arg name="robot_yaw" value="0.00" />
+  </include>
+
+  <!-- spawn power drill -->
+  <include file="$(find mobipick_gazebo)/launch/objects/power_drill_with_grip.launch">
+    <arg name="x"     default="12.3" />
+    <arg name="y"     default="3.8" />
+    <arg name="z"     default="0.81" />
+    <arg name="roll"  default="$(eval -pi / 2)" />
+    <arg name="pitch" default="0.0" />
+    <arg name="yaw"   default="$(eval -pi  *2  / 3)" />
+  </include>
+
+  <!-- spawn KLT -->
+  <include file="$(find mobipick_gazebo)/launch/objects/klt.launch">
+    <arg name="x"     default="12.55" />
+    <arg name="y"     default="3.86" />
+    <arg name="z"     default="0.80" />
+    <arg name="roll"  default="0.0" />
+    <arg name="pitch" default="0.0" />
+    <arg name="yaw"   default="1.96" />
+  </include>
+
+  <!-- spawn table -->
+  <param name="table_description"
+    command="$(find xacro)/xacro '$(find mobipick_gazebo)/urdf/tall_table.urdf.xacro'" />
+  <node name="spawn_pick_table" pkg="gazebo_ros" type="spawn_model" args="-urdf -param table_description -model table_1 -x 12.3 -y 3.8"
+    respawn="false" output="screen" />
+</launch>

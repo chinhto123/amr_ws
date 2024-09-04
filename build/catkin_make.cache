@@ -1,0 +1,2 @@
+rviz_plugin_tutorials
+-DCATKIN_DEVEL_PREFIX=/home/chinh/autoxing/devel -DCMAKE_INSTALL_PREFIX=/home/chinh/autoxing/install -DCATKIN_WHITELIST_PACKAGES=rviz_plugin_tutorials -G Unix Makefiles

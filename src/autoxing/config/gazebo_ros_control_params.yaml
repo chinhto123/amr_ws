@@ -1,0 +1,11 @@
+gegazebo_ros_control:   
+  pid_gains:
+    wheel_left_joint:
+      p: 1.
+      i: 0 
+      d: 0
+    wheel_right_joint:
+      p: 1.
+      i: 0 
+      d: 0
+   

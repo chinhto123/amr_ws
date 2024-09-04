@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: logic
+Description: Description of logic
+Version: 0.10.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

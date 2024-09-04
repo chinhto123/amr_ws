@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="x" default="0.264589" />
+  <arg name="y" default="-0.293903" />
+  <arg name="z" default="0.80" />
+  <arg name="roll" default="0.0" />
+  <arg name="pitch" default="0.0" />
+  <arg name="yaw" default="0.0" />
+
+  <param name="klt_description"
+    command="$(find xacro)/xacro '$(find levelManager)/lego_models/bin/klt.urdf.xacro'" />
+
+  
+    <node name="spawn_klt1" pkg="gazebo_ros" type="spawn_model" args="-urdf
+      -param klt_description -model klt_1 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" respawn="false" output="screen" />
+ 
+ 
+</launch>

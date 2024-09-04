@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: autoxing
+Description: Description of autoxing
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

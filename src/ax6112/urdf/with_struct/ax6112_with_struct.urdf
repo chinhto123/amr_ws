@@ -1,0 +1,1036 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="autoxing">
+   <link
+    name="base_footprint">
+   
+  </link>
+    
+  <link
+    name="chassis">
+    <inertial>
+      <origin
+        xyz="0.000149481705181087 -0.000120539934038988 0.152123091903942"
+        rpy="0 0 0" />
+      <mass
+        value="116.0" />
+      <inertia ixx="2.0609325089599997" ixy="0.0" ixz="0.0" iyy="4.34999826" iyz="0.0" izz="5.54093111696"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+ 
+  <joint
+    name="base_link_it"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_footprint" />
+    <child
+      link="chassis" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+ 
+  <joint name="mir_struct_joint" type="fixed">
+    <parent link="chassis" />
+    <child link="part_down" />
+    <origin xyz="0.0 0.0 0.20" rpy="0.0 0.0 0.0" />
+  </joint>
+  <link name="part_down">
+      <inertial>
+        <origin xyz="0 0 0.3278534031" rpy="4.71238898038 1.57079632679 1.57079632679" />
+        <mass value="3.349376" />
+        <inertia
+          ixx="0.432077541"
+          ixy="0"
+          ixz="0"
+          iyy="0.369249471"
+          iyz="0"
+          izz="0.179676981" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/visual/v1/part_down.stl" scale="0.65 0.65 0.5" />
+        </geometry>
+        
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/collision/v1/part_down.stl" scale="0.65 0.65 0.5" />
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="part_down">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+   <link name="part_up">
+      <inertial>
+        <origin xyz="0 0 0.3535849057" rpy="4.71238898038 1.57079632679 1.57079632679" />
+        <mass value="4.64704" />
+        <inertia
+          ixx="0.549473755"
+          ixy="0"
+          ixz="0"
+          iyy="0.436580833"
+          iyz="0"
+          izz="0.245971089" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/visual/v1/part_up.stl" scale="0.65 0.65 0.5"/>
+        </geometry>
+        
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/collision/v1/part_up.stl" scale="0.65 0.65 0.5" />
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="part_up">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <link name="pedestal">
+      <inertial>
+        <origin xyz="0 0 0.1532210441" rpy="4.71238898038 1.57079632679 0" />
+        <mass value="2.354023413" />
+        <inertia
+          ixx="0.049542988"
+          ixy="0"
+          ixz="0"
+          iyy="0.042530187"
+          iyz="0"
+          izz="0.020198776" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/visual/v1/pedestal.stl" scale="0.8 1 0.5"/>
+        </geometry>
+       
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ax6112/meshes/structure/collision/v1/pedestal.stl" scale="0.8 1 0.5"/>
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="pedestal">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+  <joint name="structure_vertical_joint" type="fixed">
+      <origin xyz="0 0 0.14" rpy="0 0 0" />
+      <parent link="part_down" />
+      <child link="part_up" />
+    </joint>
+
+    <joint name="Tischaufbau_joint" type="fixed">
+      <origin xyz="0 0 0.22" rpy="0 0 0" />
+      <parent link="part_up" />
+      <child link="pedestal" />
+    </joint>
+
+   
+
+    <joint name="Tischaufbau_base_joint" type="fixed">
+      <origin xyz="0 0 0.2492" rpy="0 0 0" />
+      <parent link="pedestal" />
+      <child link="pedestal_surface" />
+    </joint>
+    <link name="pedestal_surface"/>
+ <!--WHEEL-->
+  <link
+    name="wheel_left">
+    <inertial>
+      <origin
+        xyz="-1.38777878078145E-16 -7.97972798949331E-17 0.0399999999999999"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        
+	<cylinder radius="0.08" length="0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+   
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+	<cylinder radius="0.08" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_left_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.160461283375568 0.001"
+      rpy="-1.5707963267949 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="wheel_left" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="wheel_right">
+    <inertial>
+      <origin
+        xyz="-1.38777878078145E-17 1.04083408558608E-17 0.0399999999999999"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+       <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+         
+	<cylinder radius="0.08" length="0.05"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        
+          <cylinder radius="0.08" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_right_joint"
+    type="continuous">
+    <origin
+      xyz="0 -0.160461283375569 0.001"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="wheel_right" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="casterhub_front_left">
+    <inertial>
+      <origin
+        xyz="0.00631384572851573 -0.00939402891827468 -7.51390670640402E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0507301916211751" />
+      <inertia
+        ixx="2.13076622334858E-05"
+        ixy="-4.77213305526971E-12"
+        ixz="-2.15459256741868E-07"
+        iyy="2.12936580660824E-05"
+        iyz="-3.18977689924232E-11"
+        izz="9.21167172411273E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_front_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_front_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="casterhub_front_left_joint"
+    type="continuous">
+    <origin
+      xyz="0.191588642505787 0.16140857130743 0.00300000000000051"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="casterhub_front_left" />
+    <axis
+      xyz="0 0 1" />
+       <dynamics damping="0.01" friction="0.0" />
+  </joint>
+  <link
+    name="wheel_lf">
+    <inertial>
+      <origin
+        xyz="2.77555756156289E-17 3.46944695195361E-17 0.0275000000000001"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/wheel_lf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0.025"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0375" length="0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_lf_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0185912035639785 -0.036894016223973 -0.0450000000000003"
+      rpy="-1.5707963267949 0 0" />
+    <parent
+      link="casterhub_front_left" />
+    <child
+      link="wheel_lf" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="casterhub_front_right">
+    <inertial>
+      <origin
+        xyz="0.00631384572851623 0.00939400352967251 -7.51390670643212E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0507301916211753" />
+      <inertia
+        ixx="2.13076622334862E-05"
+        ixy="0"
+        ixz="0"
+        iyy="2.12936580660827E-05"
+        iyz="0"
+        izz="9.21167172411275E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_front_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_front_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="casterhub_front_right_joint"
+    type="continuous">
+    <origin
+      xyz="0.191588642505786 -0.161408571307431 0.00300000000000041"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="casterhub_front_right" />
+    <axis
+      xyz="0 0 1" />
+       <dynamics damping="0.01" friction="0.0" />
+  </joint>
+  <link
+    name="wheel_rf">
+    <inertial>
+      <origin
+        xyz="-5.55111512312578E-17 -2.77555756156289E-17 0.0275"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+        <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/wheel_rf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0.025"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.0375" length="0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_rf_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0185912035639783 0.0368940162239737 -0.0450000000000001"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="casterhub_front_right" />
+    <child
+      link="wheel_rf" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="casterhub_back_left">
+    <inertial>
+      <origin
+        xyz="-0.00631384572595789 -0.00939400352571207 -7.51390691109341E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0507301916238285" />
+      <inertia
+        ixx="2.13076622385357E-05"
+        ixy="0"
+        ixz="0"
+        iyy="2.12936580714444E-05"
+        iyz="0"
+        izz="9.21167172497116E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_back_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_back_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="casterhub_back_left_joint"
+    type="continuous">
+    <origin
+      xyz="-0.191588642505784 0.15140857130743 0.00300000000000039"
+      rpy="0 0 3.14159" />
+    <parent
+      link="chassis" />
+    <child
+      link="casterhub_back_left" />
+    <axis
+      xyz="0 0 1" />
+       <dynamics damping="0.01" friction="0.0" />
+  </joint>
+  <link
+    name="wheel_lb">
+    <inertial>
+      <origin
+        xyz="5.55111512312578E-17 2.42861286636753E-17 0.0275"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+          <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/wheel_lb.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0.025"
+        rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="0.0375" length="0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_lb_joint"
+    type="continuous">
+    <origin
+      xyz="0.0185912035639781 -0.0368940162239735 -0.0450000000000004"
+      rpy="-1.5707963267949 0 0" />
+    <parent
+      link="casterhub_back_left" />
+    <child
+      link="wheel_lb" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="casterhub_back_right">
+    <inertial>
+      <origin
+        xyz="-0.00631384572595783 0.00939402892223568 -7.51390691110208E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0507301916238286" />
+      <inertia
+        ixx="2.1307662238536E-05"
+        ixy="-4.77268550032231E-12"
+        ixz="2.15459261528391E-07"
+        iyy="2.12936580714447E-05"
+        iyz="3.19056366466023E-11"
+        izz="9.21167172497116E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_back_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/casterhub_back_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="casterhub_back_right_joint"
+    type="continuous">
+    <origin
+      xyz="-0.191588642505784 -0.151408571307431 0.00300000000000018"
+      rpy="0 0 3.14159" />
+    <parent
+      link="chassis" />
+    <child
+      link="casterhub_back_right" />
+    <axis
+      xyz="0 0 1" />
+       <dynamics damping="0.01" friction="0.0" />
+  </joint>
+  <link
+    name="wheel_rb">
+    <inertial>
+      <origin
+        xyz="-3.33066907387547E-16 2.84494650060196E-16 0.0275"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia ixx="0.001061895408575" ixy="0.0" ixz="0.0" iyy="0.001061895408575" iyz="0.0" izz="0.001953125"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/wheel_rb.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0.025"
+        rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="0.0375" length="0.055" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_rb_joint"
+    type="continuous">
+    <origin
+      xyz="0.0185912035639779 0.0368940162239737 -0.0450000000000001"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="casterhub_back_right" />
+    <child
+      link="wheel_rb" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="lidar">
+    <inertial>
+      <origin
+        xyz="-2.77555756156289E-17 0 -0.005"
+        rpy="0 0 0" />
+      <mass
+        value="0.000785398163397448" />
+      <inertia
+        ixx="1.14537232162128E-08"
+        ixy="0"
+        ixz="0"
+        iyy="1.14537232162128E-08"
+        iyz="0"
+        izz="9.8174770424681E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/lidar.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.00671416680612409 0.00186793926091405 0.158"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="lidar" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+    <!--imu_sensor-->
+     <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="-2.77555756156289E-17 0 -0.005"
+        rpy="0 0 0" />
+      <mass
+        value="0.000785398163397448" />
+      <inertia
+        ixx="1.14537232162128E-08"
+        ixy="0"
+        ixz="-3.39253103278279E-24"
+        iyy="1.14537232162128E-08"
+        iyz="-1.03950157856018E-23"
+        izz="9.8174770424681E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://autoxing/meshes/lidar.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0.00671416680612409 0.00186793926091405 0.1"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+   <gazebo reference="chassis">
+  	<material>Gazebo/Turquoise </material>
+  </gazebo>
+  <gazebo reference="wheel_left">
+  	<mu1>200.0</mu1>
+  	<mu2>200.0</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd>
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <gazebo reference="wheel_right">
+  	<mu1>200.0</mu1>
+  	<mu2>200.0</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd>   
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <gazebo reference="lidar">
+  	<material>Gazebo/Green</material>
+  </gazebo>
+   <gazebo reference="wheel_lf">
+  	<mu1>0.01</mu1>
+  	<mu2>0.01</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd>   
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <gazebo reference="wheel_rf">
+  	<mu1>0.01</mu1>
+  	<mu2>0.01</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd>   
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <gazebo reference="wheel_lb">
+  	<mu1>0.01</mu1>
+  	<mu2>0.01</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd>   
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <gazebo reference="wheel_rb">
+    <mu1>0.01</mu1>
+  	<mu2>0.01</mu2>
+  	<kp>10000000</kp>
+  	<kd>1.0</kd> 
+  	<material>Gazebo/FlatBlack</material>
+  </gazebo>
+   <!-- adding diff drive -->
+        <gazebo>
+      <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <legacyMode>false</legacyMode>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50</updateRate>
+        <leftJoint>wheel_left_joint</leftJoint>
+        <rightJoint>wheel_right_joint</rightJoint>
+        <wheelSeparation>0.445208</wheelSeparation>
+        <wheelDiameter>0.16</wheelDiameter>
+        <wheelTorque>10</wheelTorque>
+        <publishTf>1</publishTf>
+        <odometryFrame>odom</odometryFrame>
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <robotBaseFrame>base_footprint</robotBaseFrame>
+        <wheelAcceleration>2.8</wheelAcceleration>
+        <publishWheelJointState>true</publishWheelJointState>
+        <publishWheelTF>false</publishWheelTF>
+        <odometrySource>odom</odometrySource>
+        <rosDebugLevel>Debug</rosDebugLevel>
+      </plugin>
+    </gazebo>
+    <transmission name="left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+     <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50.0</updateRate>
+      <bodyName>base_footprint</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>map</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <controlPeriod>0.001</controlPeriod>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+ <!-- hokuyo -->
+  <gazebo reference="lidar">
+    <sensor type="ray" name="sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>4.712388</max_angle> <!-- 1.570796-->
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      
+      <plugin name="hokuyo_node" filename="libgazebo_ros_laser.so">
+        <topicName>/laser/scan</topicName>
+        <frameName>lidar</frameName>
+      </plugin> 
+    </sensor>
+  </gazebo>
+   <!-- imu sensor -->
+     <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>chassis</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>1.0</updateRate>
+    </plugin>
+  </gazebo>
+   <gazebo reference="imu_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+  
+      <transmission name="trans_casterhub_front_left_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="casterhub_front_left_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="casterhub_front_left_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_lf_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_lf_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_lf_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_casterhub_front_right_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="casterhub_front_right_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="casterhub_front_right_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_rf_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_rf_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_rf_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_casterhub_back_left_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="casterhub_back_left_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="casterhub_back_left_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_lb_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_lb_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_lb_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_casterhub_back_right_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="casterhub_back_right_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="casterhub_back_right_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_rb_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_rb_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_rb_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+  
+</robot>

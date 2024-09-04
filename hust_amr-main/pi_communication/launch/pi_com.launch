@@ -1,0 +1,6 @@
+<launch>
+  <!-- Arguments -->
+  <node pkg="pi_communication" type="pi_handle.py" name="pi_com" output="screen" >
+    <rosparam file="$(find pi_communication)/param/connection.yaml" command="load" />
+  </node>
+</launch>

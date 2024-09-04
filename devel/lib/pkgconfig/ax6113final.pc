@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: ax6113final
+Description: Description of ax6113final
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

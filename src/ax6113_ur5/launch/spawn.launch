@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+     <node name="spawn_machine" pkg="gazebo_ros" type="spawn_model" args="-sdf
+      -file $(find machine)/urdf/machine.sdf -model machine -x -1 -y 1 -z 0.1 -R 1.58 -P -0 -Y 1.58" output="screen" /> 
+     <node name="spawn_phonecase1" pkg="gazebo_ros" type="spawn_model" args="-sdf
+      -file $(find machine)/urdf/phone_case.sdf -model phone1 -x -0.9 -y -0 -z 1 -R 0 -P -0 -Y 1.58" output="screen" /> 
+           <node name="spawn_phonecase2" pkg="gazebo_ros" type="spawn_model" args="-sdf
+      -file $(find machine)/urdf/phone_case.sdf -model phone2 -x -0.7 -y 1 -z 0.5 -R -0 -P -0 -Y 1.58" output="screen" /> 
+</launch>

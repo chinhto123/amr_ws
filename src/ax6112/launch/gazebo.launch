@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Gazebo options -->
+  <arg name="gazebo_gui" default="true" doc="Start Gazebo GUI"/>
+  <arg name="paused" default="false" doc="Start Gazebo paused"/>
+  <arg name="world_name" default="worlds/empty.world" doc="Gazebo world file"/>
+  <arg name="world_pose" default="-x 0 -y 0 -z 0.1 -R 0 -P 0 -Y 0" doc="Pose to spawn the robot at"/>
+
+
+  <!-- Start Gazebo paused to allow the controllers to pickup the initial pose -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" pass_all_args="true">
+    <arg name="paused" value="true"/>
+  </include>
+
+    
+      <node name="spawn_maze" pkg="gazebo_ros" type="spawn_model" args="-sdf
+      -file $(find autoxing)/maps/sdf/maze/model.sdf -model walls" output="screen" />
+ 
+  
+      <arg name="tf_prefix" default="" doc="tf_prefix to be used by gazebo plugins and in the robot's urdf etc." />
+
+    <arg name="prefix" value="$(arg tf_prefix)/" if="$(eval tf_prefix != '')" /> <!-- $(arg prefix) is used in all the config files! TODO: For multiple robots, create groups when loading the parameters to overwrite the arg? -->
+    <arg name="prefix" value=""                  unless="$(eval tf_prefix != '')" />
+
+ <!-- Set the robot urdf on the parameter server -->
+  <param name="robot_description" textfile="$(find ax6112)/urdf/with_struct/ax6112_with_struct _ur5.urdf" />
+
+  <!-- Unpause the simulation after loading the robot model -->
+  <arg name="unpause" value="$(eval '' if arg('paused') else '-unpause')" />
+
+  <!-- Spawn the robot in Gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot $(arg unpause) $(arg world_pose) "
+    respawn="false" output="screen" />
+
+        <!-- Load ros_control controller configurations -->
+    <rosparam file="$(find ax6112)/config/joint_state_controller.yaml" command="load" />
+    <rosparam file="$(find ax6112)/config/diffdrive_controller.yaml" command="load" subst_value="true" />
+    
+      <!-- Load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller mobile_base_controller"/>
+    
+     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_node" clear_params="true" output="screen">
+    <rosparam command="load" file="$(find ax6112)/config/efk.yaml" subst_value="true" />
+  </node>
+   <!-- Given the published joint states, publish tf for the robot links -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+    <!-- Load teleop -->
+    <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+        <param name="default_topic" value="/mobile_base_controller/cmd_vel"/>
+        <param name="default_vx_max" value="1.0" />
+        <param name="default_vx_min" value="-1.0" />
+        <param name="default_vw_max" value="1.5" />
+        <param name="default_vw_min" value="-1.5" />
+    </node>    
+</launch>

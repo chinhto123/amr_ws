@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ax6112
+    relative_path: urdf/with_struct/ax6112_with_struct _ur5.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/autoxing.srdf
+  CONFIG:
+    author_name: chinh
+    author_email: chinh@chinh.com
+    generated_timestamp: 1701800319

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<launch>
+    
+    <!-- define arguments -->
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="debug" default="false" />
+    <arg name="verbose" default="true" />
+
+    <arg name="robot_x" default="0" />
+    <arg name="robot_y" default="0" />
+    <arg name="robot_z" default="0.01" />
+
+    <!-- startup simulated WORLD -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+          <arg name="world_name" value="$(find aws_robomaker_small_warehouse_world)/worlds/no_roof_small_warehouse.world"/>
+        <arg name="paused" value="$(arg paused)" />
+        <arg name="use_sim_time" value="$(arg use_sim_time)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="verbose" value="$(arg verbose)" />
+    </include>
+ <node
+    name="tf1"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 odom base_link 100" />
+
+    <node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 chassis odom 100" />
+  <node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-x 0 -y 0 -z 0.1 -file $(find autoxing)/urdf/autoxing_with_base.urdf -urdf -model autoxing"
+    output="screen" />
+  <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />
+
+</launch>
+
+

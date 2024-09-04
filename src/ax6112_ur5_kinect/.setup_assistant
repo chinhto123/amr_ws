@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ax6112_ur5_struct
+    relative_path: config/ax6112_ur5_kinect.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/ur5.srdf
+  CONFIG:
+    author_name: chinh
+    author_email: chinh@chinh.com
+    generated_timestamp: 1702579663

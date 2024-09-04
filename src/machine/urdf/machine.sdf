@@ -1,0 +1,36 @@
+<sdf version='1.7'>
+  <model name='machine'>
+    <link name='cnn'>
+      <inertial>
+        <pose>-0 0.418769 0.041751 0 -0 0</pose>
+        <mass>52.9631</mass>
+        <inertia>
+          <ixx>1.12655</ixx>
+          <ixy>4.11206e-13</ixy>
+          <ixz>4.06682e-13</ixz>
+          <iyy>0.840057</iyy>
+          <iyz>3.16245e-09</iyz>
+          <izz>1.03139</izz>
+        </inertia>
+      </inertial>
+      <collision name='cnn_fixed_joint_lump__base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://machine/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='cnn_fixed_joint_lump__base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://machine/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

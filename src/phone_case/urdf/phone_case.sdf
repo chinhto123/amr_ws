@@ -1,0 +1,50 @@
+<sdf version='1.7'>
+  <model name='phone_case'>
+    <link name='phone_link'>
+      <inertial>
+        <pose>8.6e-05 0.001936 -0.004242 0 -0 0</pose>
+        <mass>1.0756</mass>
+        <inertia>
+          <ixx>0.00013142</ixx>
+          <ixy>-1.34e-08</ixy>
+          <ixz>2.7466e-12</ixz>
+          <iyy>2.4108e-05</iyy>
+          <iyz>-2.5124e-08</iyz>
+          <izz>0.00015463</izz>
+        </inertia>
+      </inertial>
+      <collision name='phone_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://phone_case/meshes/phone_link.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='phone_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://phone_case/meshes/phone_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Turquoise</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

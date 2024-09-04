@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: nachi_control
+Description: Description of nachi_control
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

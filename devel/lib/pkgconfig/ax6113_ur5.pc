@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/devel
+
+Name: ax6113_ur5
+Description: Description of ax6113_ur5
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

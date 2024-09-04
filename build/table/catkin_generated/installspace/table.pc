@@ -1,0 +1,8 @@
+prefix=/home/chinh/autoxing/install
+
+Name: table
+Description: Description of table
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

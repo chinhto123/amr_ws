@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libBooleanVariables.h.so -o /home/chinh/autoxing/devel/lib/libBooleanVariables.h.so CMakeFiles/BooleanVariables.h.dir/src/BooleanVariables.cpp.o 
